@@ -5,6 +5,7 @@ import Footer from "../components/Footer/Footer";
 import MetamaskButton from "../components/MetamaskButton/MetamaskButton";
 import Form from "../components/Form/Form";
 import Container from "../components/Container/Container";
+import Countdown from "../components/Countdown/Countdown";
 
 const Index = () => {
   const detectProvider = () => {
@@ -26,6 +27,7 @@ const Index = () => {
       <Container>
         <MetamaskButton />
         <Form />
+        <Countdown />
       </Container>
 
       <Footer />

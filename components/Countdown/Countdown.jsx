@@ -1,10 +1,13 @@
 import * as React from "react";
+import ReactCountdown from "react-countdown";
+
+import Counter from "./Counter/Counter";
 
 const Countdown = () => {
   return (
-    <div>
-      <h2>Countdown here</h2>
-    </div>
+    <ReactCountdown date={new Date(2022, 0, 1)} renderer={Counter}>
+      <h2>We have launched!</h2>
+    </ReactCountdown>
   );
 };
 
