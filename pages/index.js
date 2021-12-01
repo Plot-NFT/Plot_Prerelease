@@ -1,9 +1,12 @@
 import * as React from "react";
-import { useEthers, useEtherBalance } from "@usedapp/core";
+
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
+import MetamaskButton from "../components/MetamaskButton/MetamaskButton";
+import Form from "../components/Form/Form";
+import Container from "../components/Container/Container";
 
 const Index = () => {
-  const { activateBrowserWallet, account, deactivate } = useEthers();
-
   const detectProvider = () => {
     if (!window.ethereum) {
       alert(
@@ -17,11 +20,16 @@ const Index = () => {
   }, []);
 
   return (
-    <div>
-      {!account && <button onClick={activateBrowserWallet}>Connect</button>}
-      {account && <p>Account: {account}</p>}
-      {account && <button onClick={deactivate}>Disconnect</button>}
-    </div>
+    <>
+      <Header />
+
+      <Container>
+        <MetamaskButton />
+        <Form />
+      </Container>
+
+      <Footer />
+    </>
   );
 };
 
