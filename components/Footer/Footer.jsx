@@ -1,10 +1,10 @@
-import * as React from "react";
+import styles from "./Footer.module.scss";
 
 const Footer = () => {
   return (
-    <div>
-      <h1>FOoter here</h1>
-    </div>
+    <footer className={styles.footer}>
+      <p>&copy;2021. Plot.</p>
+    </footer>
   );
 };
 

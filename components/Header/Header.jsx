@@ -1,10 +1,10 @@
-import * as React from "react";
+import styles from "./Header.module.scss";
 
 const Header = () => {
   return (
-    <div>
-      <h1>header here</h1>
-    </div>
+    <header className={styles.header}>
+      <h1>Plot.</h1>
+    </header>
   );
 };
 
