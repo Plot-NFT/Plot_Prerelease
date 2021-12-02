@@ -1,0 +1,30 @@
+@use "../../scss/variable";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.notLogin {
+  margin-bottom: 4rem;
+}
+
+.wrapperLogin {
+  display: flex;
+}
+
+.button {
+  border-radius: 10px;
+  background: variable.$btn-primary;
+  border: 0;
+  width: 300px;
+  padding: 0.5rem 1rem;
+  color: variable.$text-secondary;
+}
+
+.button:hover {
+  background: variable.$btn-primary-hover;
+  cursor: pointer;
+}

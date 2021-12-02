@@ -1,12 +1,42 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,400&display=swap");
+@use "./variable";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;700&display=swap");
 
 * {
-  font-family: "Poppins", sans-serif;
-  color: #1f1f1f;
+  font-family: variable.$font-family;
+  color: variable.$text-primary;
   box-sizing: border-box;
+  font-size: variable.$font-size;
+}
+
+html {
+  height: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+div#__next {
+  height: 100%;
+}
+
+.grid-wrapper {
+  height: 100%;
+  // background-image: url("../public/assets/pattern.webp");
+  // background-size: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+p {
+  margin: 0.25rem 0;
+}
+
+input {
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid variable.$bg-secondary;
 }

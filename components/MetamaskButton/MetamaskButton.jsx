@@ -1,14 +1,29 @@
-import { useEthers, useEtherBalance } from "@usedapp/core";
+import { useEthers } from "@usedapp/core";
+import styles from "./MetamaskButton.module.scss";
 
 const MetamaskButton = () => {
-  const { activateBrowserWallet, account, deactivate } = useEthers();
+  const { activateBrowserWallet, account } = useEthers();
 
   return (
-    <>
-      {!account && <button onClick={activateBrowserWallet}>Connect</button>}
-      {account && <p>Account: {account}</p>}
-      {account && <button onClick={deactivate}>Disconnect</button>}
-    </>
+    <div className={`${styles.wrapper} ${!account ? styles.notLogin : ""}`}>
+      {!account && (
+        <button className={styles.button} onClick={activateBrowserWallet}>
+          Connect Metamask
+        </button>
+      )}
+
+      {account && (
+        <div>
+          <div>
+            <h2> Hi {account}!</h2>
+
+            <p className={styles.header}>
+              You have been added to our whitelist!
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

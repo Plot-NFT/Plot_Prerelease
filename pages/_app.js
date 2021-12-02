@@ -13,7 +13,7 @@ const config = {
 function MyApp({ Component, pageProps }) {
   return (
     <DAppProvider config={config}>
-      <div className="grid wrapper">
+      <div className="grid-wrapper">
         <Component {...pageProps} />
       </div>
     </DAppProvider>
