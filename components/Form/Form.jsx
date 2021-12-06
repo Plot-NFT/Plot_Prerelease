@@ -3,12 +3,13 @@ import { useEthers } from "@usedapp/core";
 
 import styles from "./Form.module.scss";
 
-const Form = () => {
+const Form = ({ chainState }) => {
   const { account } = useEthers();
 
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
   const [registered, setRegistered] = React.useState(false);
+  const [chainId, setChainId] = chainState;
 
   const validateEmail = (email) => {
     return email.match(
@@ -38,7 +39,11 @@ const Form = () => {
     }
   };
 
-  return account ? (
+  const isValidNetwork = () => {
+    return chainId === "80001";
+  };
+
+  return account && isValidNetwork() ? (
     <div className={styles.wrapper}>
       {!registered && (
         <>

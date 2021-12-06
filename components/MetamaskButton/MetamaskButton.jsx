@@ -1,8 +1,10 @@
+import * as React from "react";
 import { useEthers } from "@usedapp/core";
 import styles from "./MetamaskButton.module.scss";
 
-const MetamaskButton = () => {
+const MetamaskButton = ({ chainState }) => {
   const { activateBrowserWallet, account } = useEthers();
+  const [chainId, setChainId] = chainState;
 
   const POLYGON_MUMBAI_PARAMS = {
     chainId: "0x13881",
@@ -16,25 +18,55 @@ const MetamaskButton = () => {
     blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
   };
 
-  const addBlockchainNetwork = () => {
-    window.ethereum
-      .request({
+  const addBlockchainNetwork = async () => {
+    if (chainId !== "80001") {
+      await window.ethereum.request({
         method: "wallet_addEthereumChain",
         params: [POLYGON_MUMBAI_PARAMS],
-      })
-      .then((res) => activateBrowserWallet())
-      .catch((err) => console.log(err));
+      });
+    }
   };
 
+  const isValidNetwork = () => {
+    return chainId === "80001";
+  };
+
+  React.useEffect(() => {
+    if (!chainId) {
+      window.ethereum.on("networkChanged", function (networkId) {
+        console.log("networkChanged", networkId);
+
+        setChainId(networkId);
+      });
+    }
+
+    if (account && !chainId) {
+      setChainId(window.ethereum.networkVersion);
+    }
+  }, [account, chainId]);
+
   return (
-    <div className={`${styles.wrapper} ${!account ? styles.notLogin : ""}`}>
+    <div
+      className={`${styles.wrapper} ${
+        !account || !isValidNetwork() ? styles.notLogin : ""
+      }`}
+    >
       {!account && (
-        <button className={styles.button} onClick={addBlockchainNetwork}>
+        <button
+          className={styles.button}
+          onClick={() => activateBrowserWallet()}
+        >
           Connect Metamask
         </button>
       )}
 
-      {account && (
+      {account && !isValidNetwork() && (
+        <button className={styles.button} onClick={addBlockchainNetwork}>
+          Switch to Polygon Testnet Mumbai Network
+        </button>
+      )}
+
+      {account && isValidNetwork() && (
         <div>
           <div>
             <h2> Hi {account}!</h2>

@@ -8,6 +8,8 @@ import Container from "../components/Container/Container";
 import Countdown from "../components/Countdown/Countdown";
 
 const Index = () => {
+  const [chainId, setChainId] = React.useState(null);
+
   const detectProvider = () => {
     if (!window.ethereum) {
       alert(
@@ -25,8 +27,8 @@ const Index = () => {
       <Header />
 
       <Container>
-        <MetamaskButton />
-        <Form />
+        <MetamaskButton chainState={[chainId, setChainId]} />
+        <Form chainState={[chainId, setChainId]} />
         <Countdown />
       </Container>
 
