@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useEthers } from "@usedapp/core";
-import axios from "axios";
 import styles from "./MetamaskButton.module.scss";
 
 const MetamaskButton = ({ chainState }) => {
@@ -34,15 +33,13 @@ const MetamaskButton = ({ chainState }) => {
 
   React.useEffect(() => {
     if (!chainId) {
-      window.ethereum.on("chainChanged", function (networkId) {
+      window.ethereum.on("chainChanged", (networkId) => {
         setChainId(networkId);
       });
     }
 
     if (account && !chainId) {
       setChainId(window.ethereum.networkVersion);
-
-      console.log(account);
     }
   }, [account, chainId]);
 

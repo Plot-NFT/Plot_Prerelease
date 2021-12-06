@@ -55,6 +55,47 @@ export default async function handler(req, res) {
         });
       }
       break;
+    case "PUT":
+      const validateEmail = (email) => {
+        return email.match(
+          /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+      };
+
+      const { email, wallet: userWallet } = req.body;
+
+      const isEmailValid = validateEmail(email);
+
+      if (isEmailValid) {
+        try {
+          const whitelist = await Whitelist.findOne({ wallet: userWallet });
+
+          console.log(whitelist);
+
+          whitelist.email = email;
+
+          await whitelist.save();
+
+          console.log("success saving email");
+
+          res.json({
+            status: 201,
+            message: "Success adding email to whitelist data",
+          });
+        } catch (error) {
+          console.log(error);
+          res.json({
+            status: 500,
+            error: "Server error",
+          });
+        }
+      } else {
+        res.json({
+          status: 400,
+          error: "Invalid input",
+        });
+      }
+      break;
     default:
       break;
   }

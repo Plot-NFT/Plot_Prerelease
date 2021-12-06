@@ -1,15 +1,14 @@
+/* eslint-disable react/prop-types */
+import axios from "axios";
 import * as React from "react";
-import { useEthers } from "@usedapp/core";
 
 import styles from "./Form.module.scss";
 
-const Form = ({ chainState }) => {
-  const { account } = useEthers();
-
+const Form = ({ chainState, userState }) => {
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
-  const [registered, setRegistered] = React.useState(false);
-  const [chainId, setChainId] = chainState;
+  const [chainId] = chainState;
+  const [user, setUser] = userState;
 
   const validateEmail = (email) => {
     return email.match(
@@ -17,15 +16,23 @@ const Form = ({ chainState }) => {
     );
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
 
     const isValid = validateEmail(email);
 
     if (isValid) {
-      console.log(email);
+      const dataPayload = { wallet: user.wallet, email };
 
-      setRegistered(true);
+      const { data } = await axios.put("/api/whitelist", dataPayload);
+
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setEmail("");
+        setError(data.message);
+        setUser({ ...user, mailingStatus: "registered" });
+      }
     } else {
       setError("Enter valid email");
     }
@@ -43,40 +50,39 @@ const Form = ({ chainState }) => {
     return chainId === "80001";
   };
 
-  return account && isValidNetwork() ? (
-    <div className={styles.wrapper}>
-      {!registered && (
-        <>
-          <p className={styles.header}>
-            If you want to be notified on our release date, please subscribe to
-            our mail
-          </p>
+  return user.wallet && isValidNetwork() ? (
+    user.mailingStatus === "registered" ? (
+      <div className={styles.wrapper}>We will notify you! Keep on waiting!</div>
+    ) : (
+      <div className={styles.wrapper}>
+        <p className={styles.header}>
+          If you want to be notified on our release date, please subscribe to
+          our mail
+        </p>
 
-          <form className={styles.form} onSubmit={submit}>
-            <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
+        <form className={styles.form} onSubmit={submit}>
+          <div className={styles.formGroup}>
+            <label htmlFor="email">Email</label>
 
-              <input
-                type="email"
-                name="email"
-                id="email"
-                onChange={inputChange}
-                placeholder="name@mail.com"
-                required
-              />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              onChange={inputChange}
+              placeholder="name@mail.com"
+              value={email}
+              required
+            />
 
-              <span>{error}</span>
-            </div>
+            <span>{error}</span>
+          </div>
 
-            <button className={styles.button} type="submit">
-              Subscribe
-            </button>
-          </form>
-        </>
-      )}
-
-      {registered && <p>We will notify you on our release date!</p>}
-    </div>
+          <button className={styles.button} type="submit">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    )
   ) : null;
 };
 
