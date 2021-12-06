@@ -34,8 +34,6 @@ const MetamaskButton = ({ chainState }) => {
   React.useEffect(() => {
     if (!chainId) {
       window.ethereum.on("networkChanged", function (networkId) {
-        console.log("networkChanged", networkId);
-
         setChainId(networkId);
       });
     }
