@@ -1,7 +1,8 @@
 import MongoDB from "../../config/db.js";
+import protectAPI from "../../middleware/protectAPI.js";
 import Whitelist from "../../models/WhitelistSchema.js";
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   await MongoDB.getInstance();
 
   const { method } = req;
@@ -100,3 +101,5 @@ export default async function handler(req, res) {
       break;
   }
 }
+
+export default protectAPI(handler);
