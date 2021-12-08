@@ -45,7 +45,7 @@ class MongoDB {
 /* harmony export */ });
 const protectAPI = (handler)=>{
     return async (req, res)=>{
-        let ipAddress = req.socket.remoteAddress;
+        let ipAddress = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
         console.log(ipAddress);
         if (ipAddress.substr(0, 7) === "::ffff:") {
             ipAddress = ipAddress.substr(7);
