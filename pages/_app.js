@@ -1,6 +1,9 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 import "../scss/style.scss";
 
 import { DAppProvider, ChainId } from "@usedapp/core";
+import { UserProvider } from "../context/userContext";
 
 const config = {
   readOnlyChainId: ChainId.Mumbai,
@@ -13,9 +16,11 @@ const config = {
 function MyApp({ Component, pageProps }) {
   return (
     <DAppProvider config={config}>
-      <div className="grid-wrapper">
-        <Component {...pageProps} />
-      </div>
+      <UserProvider>
+        <div className="grid-wrapper">
+          <Component {...pageProps} />
+        </div>
+      </UserProvider>
     </DAppProvider>
   );
 }

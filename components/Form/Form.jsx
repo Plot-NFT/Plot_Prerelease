@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import * as React from "react";
+import { useUser } from "../../context/userContext";
 
 import styles from "./Form.module.scss";
 
-const Form = ({ chainState, userState }) => {
+const Form = () => {
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
-  const [chainId] = chainState;
-  const [user, setUser] = userState;
+  const [user, dispatch] = useUser();
 
   const validateEmail = (email) => {
     return email.match(
@@ -24,14 +24,42 @@ const Form = ({ chainState, userState }) => {
     if (isValid) {
       const dataPayload = { wallet: user.wallet, email };
 
-      const { data } = await axios.put("/api/whitelist", dataPayload);
+      dispatch({ type: "submitting" });
 
-      if (data.error) {
-        setError(data.error);
-      } else {
-        setEmail("");
-        setError(data.message);
-        setUser({ ...user, mailingStatus: "registered" });
+      try {
+        const { data: emailRes } = await axios.post("/api/mailing", { email });
+
+        if (emailRes.error) {
+          setError(emailRes.error);
+          dispatch({
+            type: "failed",
+          });
+        } else {
+          const { data: whitelistRes } = await axios.put(
+            "/api/whitelist",
+            dataPayload
+          );
+
+          if (whitelistRes.error) {
+            setError(whitelistRes.error);
+            dispatch({
+              type: "failed",
+            });
+          } else {
+            setEmail("");
+            setError(whitelistRes.message);
+
+            dispatch({
+              type: "success",
+              payload: {
+                wallet: whitelistRes.data.wallet,
+                mailingStatus: whitelistRes.data.mailingStatus,
+              },
+            });
+          }
+        }
+      } catch (error) {
+        console.error(error);
       }
     } else {
       setError("Enter valid email");
@@ -46,18 +74,14 @@ const Form = ({ chainState, userState }) => {
     }
   };
 
-  const isValidNetwork = () => {
-    return chainId === "80001";
-  };
-
-  return user.wallet && isValidNetwork() ? (
+  return user.wallet ? (
     user.mailingStatus === "registered" ? (
-      <div className={styles.wrapper}>We will notify you! Keep on waiting!</div>
+      <div className={styles.wrapper}>We will notify you. Keep on waiting.</div>
     ) : (
       <div className={styles.wrapper}>
         <p className={styles.header}>
           If you want to be notified on our release date, please subscribe to
-          our mail
+          our mailing list
         </p>
 
         <form className={styles.form} onSubmit={submit}>
@@ -77,8 +101,12 @@ const Form = ({ chainState, userState }) => {
             <span>{error}</span>
           </div>
 
-          <button className={styles.button} type="submit">
-            Subscribe
+          <button
+            className={styles.button}
+            type="submit"
+            disabled={user.status === "submitting"}
+          >
+            {user.status === "submitting" ? "Submitting..." : "Subscribe"}
           </button>
         </form>
       </div>

@@ -6,14 +6,16 @@ const WhitelistSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    email: {
-      type: String,
-    },
     network: {
       type: {
         chainId: Number,
         chainName: String,
       },
+    },
+    mailingStatus: {
+      type: String,
+      enum: ["unregistered", "registered"],
+      default: "unregistered",
     },
   },
   {

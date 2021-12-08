@@ -39,3 +39,8 @@
   background: variable.$btn-primary-hover;
   cursor: pointer;
 }
+
+.button:disabled {
+  background: variable.$btn-primary-disabled;
+  cursor: not-allowed;
+}

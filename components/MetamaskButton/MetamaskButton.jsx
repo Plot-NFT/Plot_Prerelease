@@ -1,55 +1,63 @@
 import * as React from "react";
 import { useEthers } from "@usedapp/core";
+import { useUser } from "../../context/userContext";
+
 import styles from "./MetamaskButton.module.scss";
 
+// eslint-disable-next-line react/prop-types
 const MetamaskButton = ({ chainState }) => {
-  const { activateBrowserWallet, account } = useEthers();
+  const { activateBrowserWallet } = useEthers();
   const [chainId, setChainId] = chainState;
+  const [user] = useUser();
 
-  const POLYGON_MUMBAI_PARAMS = {
-    chainId: "0x13881",
-    chainName: "Polygon Testnet Mumbai",
-    nativeCurrency: {
-      name: "Matic",
-      symbol: "MATIC",
-      decimals: 18,
-    },
-    rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
-    blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
-  };
+  // const POLYGON_MUMBAI_PARAMS = {
+  //   chainId: "0x13881",
+  //   chainName: "Polygon Testnet Mumbai",
+  //   nativeCurrency: {
+  //     name: "Matic",
+  //     symbol: "MATIC",
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
+  //   blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+  // };
 
-  const addBlockchainNetwork = async () => {
-    if (chainId !== "80001") {
-      await window.ethereum.request({
-        method: "wallet_addEthereumChain",
-        params: [POLYGON_MUMBAI_PARAMS],
-      });
+  const detectProvider = () => {
+    if (!window.ethereum) {
+      return undefined;
+    } else {
+      return window.ethereum;
     }
   };
 
-  const isValidNetwork = () => {
-    return chainId === "80001";
-  };
+  // const addBlockchainNetwork = async () => {
+  //   if (chainId !== "80001") {
+  //     await window.ethereum.request({
+  //       method: "wallet_addEthereumChain",
+  //       params: [POLYGON_MUMBAI_PARAMS],
+  //     });
+  //   }
+  // };
 
   React.useEffect(() => {
-    if (!chainId) {
-      window.ethereum.on("chainChanged", (networkId) => {
-        setChainId(networkId);
-      });
-    }
+    const ethereum = detectProvider();
 
-    if (account && !chainId) {
-      setChainId(window.ethereum.networkVersion);
+    if (ethereum) {
+      if (!chainId) {
+        window.ethereum.on("chainChanged", (networkId) => {
+          setChainId(networkId);
+        });
+      }
+
+      if (user.wallet && !chainId) {
+        setChainId(window.ethereum.networkVersion);
+      }
     }
-  }, [account, chainId]);
+  }, [chainId, setChainId, user]);
 
   return (
-    <div
-      className={`${styles.wrapper} ${
-        !account || !isValidNetwork() ? styles.notLogin : ""
-      }`}
-    >
-      {!account && (
+    <div className={`${styles.wrapper} ${!user.wallet ? styles.notLogin : ""}`}>
+      {!user.wallet && (
         <button
           className={styles.button}
           onClick={() => activateBrowserWallet()}
@@ -58,16 +66,16 @@ const MetamaskButton = ({ chainState }) => {
         </button>
       )}
 
-      {account && !isValidNetwork() && (
+      {/* {user.wallet && (
         <button className={styles.button} onClick={addBlockchainNetwork}>
           Switch to Polygon Testnet Mumbai Network
         </button>
-      )}
+      )} */}
 
-      {account && isValidNetwork() && (
+      {user.wallet && (
         <div>
           <div>
-            <h2> Hi {account}!</h2>
+            <h2> Hi {user.wallet}!</h2>
 
             <p className={styles.header}>
               You have been added to our whitelist!

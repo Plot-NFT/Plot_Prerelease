@@ -6,11 +6,11 @@ async function handler(req, res) {
   await MongoDB.getInstance();
 
   const { method } = req;
+  const { wallet: userWallet } = req.query;
 
   switch (method) {
     case "GET":
-      const { wallet: id } = req.query;
-      const query = id ? { wallet: id } : {};
+      const query = userWallet ? { wallet: userWallet } : {};
 
       try {
         const whitelists = await Whitelist.find(query);
@@ -28,7 +28,7 @@ async function handler(req, res) {
       }
       break;
     case "POST":
-      const { wallet, network } = req.body;
+      const { network, wallet } = req.body;
 
       const isWalletValid =
         wallet.substring(0, 2) === "0x" && wallet.length === 42;
@@ -37,11 +37,12 @@ async function handler(req, res) {
         try {
           const newWhitelist = { wallet, network };
 
-          await Whitelist.create(newWhitelist);
+          const createdWhitelist = await Whitelist.create(newWhitelist);
 
           res.json({
             status: 201,
             message: "Success adding wallet to whitelist",
+            data: createdWhitelist,
           });
         } catch (error) {
           res.json({
@@ -57,47 +58,39 @@ async function handler(req, res) {
       }
       break;
     case "PUT":
-      const validateEmail = (email) => {
-        return email.match(
-          /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-      };
+      try {
+        const { email, wallet } = req.body;
 
-      const { email, wallet: userWallet } = req.body;
+        const isWalletValid = await Whitelist.findOne({ wallet });
 
-      const isEmailValid = validateEmail(email);
+        if (isWalletValid) {
+          isWalletValid.mailingStatus = "registered";
 
-      if (isEmailValid) {
-        try {
-          const whitelist = await Whitelist.findOne({ wallet: userWallet });
-
-          console.log(whitelist);
-
-          whitelist.email = email;
-
-          await whitelist.save();
-
-          console.log("success saving email");
+          const updatedUser = await isWalletValid.save();
 
           res.json({
             status: 201,
-            message: "Success adding email to whitelist data",
+            message: "Success updating mailing status",
+            data: updatedUser,
           });
-        } catch (error) {
-          console.log(error);
+        } else {
           res.json({
-            status: 500,
-            error: "Server error",
+            status: 400,
+            error: "Invalid input",
           });
         }
-      } else {
+      } catch (error) {
         res.json({
-          status: 400,
-          error: "Invalid input",
+          status: 500,
+          error: "Server error",
         });
       }
       break;
     default:
+      res.json({
+        status: 405,
+        error: "Method is not allowed, only accept GET, POST, and PUT",
+      });
       break;
   }
 }
