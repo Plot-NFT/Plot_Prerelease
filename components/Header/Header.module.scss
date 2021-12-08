@@ -7,7 +7,6 @@
 
   img {
     height: 100%;
-    transition: 0.5s ease-in-out;
   }
 
   img:hover {
@@ -38,13 +37,16 @@
 }
 
 @keyframes pin {
+  25% {
+    transform: translateY(0%) rotate(-26deg);
+  }
   50% {
-    transform: rotate(-26deg);
+    transform: translateY(-10%) rotate(-26deg);
   }
   75% {
-    transform: translateY(-10%);
+    transform: translateY(0%) rotate(-26deg);
   }
   100% {
-    transform: translateY(0%);
+    transform: translateY(0%) rotate(0deg);
   }
 }
