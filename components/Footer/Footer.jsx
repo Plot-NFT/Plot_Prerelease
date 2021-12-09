@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import SocialMedia from "./SocialMedia/SocialMedia";
 import styles from "./Footer.module.scss";
 

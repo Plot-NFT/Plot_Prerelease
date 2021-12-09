@@ -1,5 +1,4 @@
 import MongoDB from "../../../config/db.js";
-import protectAPI from "../../../middleware/protectAPI.js";
 import Mailing from "../../../models/MailingSchema.js";
 import { sendUnsubscribeMail } from "../../../utils/sendMail.js";
 
@@ -14,15 +13,9 @@ async function handler(req, res) {
       const query = { email: queries.email };
 
       try {
-        const mailList = await Mailing.deleteOne(query);
+        await Mailing.deleteOne(query);
 
         await sendUnsubscribeMail(query.email);
-
-        res.json({
-          status: 200,
-          message: "Success unsubscribing email",
-          data: mailList,
-        });
 
         res.redirect(`${process.env.DOMAIN}/mailing/unsubscribe`);
       } catch (error) {
@@ -42,4 +35,4 @@ async function handler(req, res) {
   }
 }
 
-export default protectAPI(handler);
+export default handler;

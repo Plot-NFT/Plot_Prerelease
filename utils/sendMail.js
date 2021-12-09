@@ -1,10 +1,12 @@
 import nodemailer from "nodemailer";
 import ejs from "ejs";
 import { readFile } from "fs/promises";
-import moduleName from "../email/index.html";
+import path from "path";
+
+const __dirname = path.resolve();
 
 const readHTMLFile = async (path) => {
-  const template = await readFile(path, { encoding: "utf-8" });
+  const template = await readFile(path, { encoding: "utf8" });
 
   return template;
 };
@@ -40,7 +42,7 @@ async function sendMail(to, subject, template) {
 async function sendWelcomeMail(to) {
   const subject = "Welcome to Plotland";
 
-  const html = await readHTMLFile("../email/subscribe.html");
+  const html = await readHTMLFile(`${__dirname}/email/subscribe.html`);
   const template = ejs.render(html, { domain: process.env.DOMAIN, to });
 
   try {
@@ -53,7 +55,7 @@ async function sendWelcomeMail(to) {
 async function sendUnsubscribeMail(to) {
   const subject = "Goodbye Plotlander!";
 
-  const template = await readHTMLFile("../email/unsubscribe.html");
+  const template = await readHTMLFile(`${__dirname}/email/unsubscribe.html`);
 
   await sendMail(to, subject, template);
 }
