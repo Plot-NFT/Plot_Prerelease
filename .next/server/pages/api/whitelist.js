@@ -1,165 +1,85 @@
 "use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
 (() => {
 var exports = {};
-exports.id = 76;
-exports.ids = [76];
+exports.id = "pages/api/whitelist";
+exports.ids = ["pages/api/whitelist"];
 exports.modules = {
 
-/***/ 185:
+/***/ "mongoose":
+/*!***************************!*\
+  !*** external "mongoose" ***!
+  \***************************/
 /***/ ((module) => {
 
 module.exports = require("mongoose");
 
 /***/ }),
 
-/***/ 184:
+/***/ "nodemailer":
+/*!*****************************!*\
+  !*** external "nodemailer" ***!
+  \*****************************/
 /***/ ((module) => {
 
 module.exports = require("nodemailer");
 
 /***/ }),
 
-/***/ 519:
+/***/ "./config/db.js":
+/*!**********************!*\
+  !*** ./config/db.js ***!
+  \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n\nclass MongoDB {\n    static instance;\n    static async _connect() {\n        this.instance = await mongoose__WEBPACK_IMPORTED_MODULE_0___default().connect(process.env.MONGODB_URI);\n    }\n    static async getInstance() {\n        if (!this.instance) {\n            try {\n                await this._connect();\n                console.log(`MongoDB is running at ${(mongoose__WEBPACK_IMPORTED_MODULE_0___default().connection.host)}`);\n                return this.instance;\n            } catch (error) {\n                console.log(error);\n            }\n        } else {\n            console.log(`MongoDB is running at ${(mongoose__WEBPACK_IMPORTED_MODULE_0___default().connection.host)}`);\n            return this.instance;\n        }\n    }\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MongoDB);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9jb25maWcvZGIuanMuanMiLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQStCO01BRXpCQyxPQUFPO1dBQ0pDLFFBQVE7aUJBRUZDLFFBQVEsR0FBRyxDQUFDO1FBQ3ZCLElBQUksQ0FBQ0QsUUFBUSxHQUFHLEtBQUssQ0FBQ0YsdURBQWdCLENBQUNLLE9BQU8sQ0FBQ0MsR0FBRyxDQUFDQyxXQUFXO0lBQ2hFLENBQUM7aUJBRVlDLFdBQVcsR0FBRyxDQUFDO1FBQzFCLEVBQUUsR0FBRyxJQUFJLENBQUNOLFFBQVEsRUFBRSxDQUFDO1lBQ25CLEdBQUcsQ0FBQyxDQUFDO2dCQUNILEtBQUssQ0FBQyxJQUFJLENBQUNDLFFBQVE7Z0JBRW5CTSxPQUFPLENBQUNDLEdBQUcsRUFBRSxzQkFBc0IsRUFBRVYsaUVBQXdCO2dCQUU3RCxNQUFNLENBQUMsSUFBSSxDQUFDRSxRQUFRO1lBQ3RCLENBQUMsQ0FBQyxLQUFLLEVBQUVXLEtBQUssRUFBRSxDQUFDO2dCQUNmSixPQUFPLENBQUNDLEdBQUcsQ0FBQ0csS0FBSztZQUNuQixDQUFDO1FBQ0gsQ0FBQyxNQUFNLENBQUM7WUFDTkosT0FBTyxDQUFDQyxHQUFHLEVBQUUsc0JBQXNCLEVBQUVWLGlFQUF3QjtZQUU3RCxNQUFNLENBQUMsSUFBSSxDQUFDRSxRQUFRO1FBQ3RCLENBQUM7SUFDSCxDQUFDOztBQUdILGlFQUFlRCxPQUFPLEVBQUMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9jb25maWcvZGIuanM/YjQ5MyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgbW9uZ29vc2UgZnJvbSBcIm1vbmdvb3NlXCI7XG5cbmNsYXNzIE1vbmdvREIge1xuICBzdGF0aWMgaW5zdGFuY2U7XG5cbiAgc3RhdGljIGFzeW5jIF9jb25uZWN0KCkge1xuICAgIHRoaXMuaW5zdGFuY2UgPSBhd2FpdCBtb25nb29zZS5jb25uZWN0KHByb2Nlc3MuZW52Lk1PTkdPREJfVVJJKTtcbiAgfVxuXG4gIHN0YXRpYyBhc3luYyBnZXRJbnN0YW5jZSgpIHtcbiAgICBpZiAoIXRoaXMuaW5zdGFuY2UpIHtcbiAgICAgIHRyeSB7XG4gICAgICAgIGF3YWl0IHRoaXMuX2Nvbm5lY3QoKTtcblxuICAgICAgICBjb25zb2xlLmxvZyhgTW9uZ29EQiBpcyBydW5uaW5nIGF0ICR7bW9uZ29vc2UuY29ubmVjdGlvbi5ob3N0fWApO1xuXG4gICAgICAgIHJldHVybiB0aGlzLmluc3RhbmNlO1xuICAgICAgfSBjYXRjaCAoZXJyb3IpIHtcbiAgICAgICAgY29uc29sZS5sb2coZXJyb3IpO1xuICAgICAgfVxuICAgIH0gZWxzZSB7XG4gICAgICBjb25zb2xlLmxvZyhgTW9uZ29EQiBpcyBydW5uaW5nIGF0ICR7bW9uZ29vc2UuY29ubmVjdGlvbi5ob3N0fWApO1xuXG4gICAgICByZXR1cm4gdGhpcy5pbnN0YW5jZTtcbiAgICB9XG4gIH1cbn1cblxuZXhwb3J0IGRlZmF1bHQgTW9uZ29EQjtcbiJdLCJuYW1lcyI6WyJtb25nb29zZSIsIk1vbmdvREIiLCJpbnN0YW5jZSIsIl9jb25uZWN0IiwiY29ubmVjdCIsInByb2Nlc3MiLCJlbnYiLCJNT05HT0RCX1VSSSIsImdldEluc3RhbmNlIiwiY29uc29sZSIsImxvZyIsImNvbm5lY3Rpb24iLCJob3N0IiwiZXJyb3IiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./config/db.js\n");
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ whitelist)
-});
+/***/ }),
 
-// EXTERNAL MODULE: ./config/db.js
-var db = __webpack_require__(809);
-// EXTERNAL MODULE: ./middleware/protectAPI.js
-var protectAPI = __webpack_require__(624);
-// EXTERNAL MODULE: external "mongoose"
-var external_mongoose_ = __webpack_require__(185);
-var external_mongoose_default = /*#__PURE__*/__webpack_require__.n(external_mongoose_);
-;// CONCATENATED MODULE: ./models/WhitelistSchema.js
+/***/ "./middleware/protectAPI.js":
+/*!**********************************!*\
+  !*** ./middleware/protectAPI.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-const WhitelistSchema = new (external_mongoose_default()).Schema({
-    wallet: {
-        type: String,
-        required: true
-    },
-    network: {
-        type: {
-            chainId: Number,
-            chainName: String
-        }
-    },
-    mailingStatus: {
-        type: String,
-        enum: [
-            "unregistered",
-            "registered"
-        ],
-        default: "unregistered"
-    }
-}, {
-    timestamps: true
-});
-/* harmony default export */ const models_WhitelistSchema = ((external_mongoose_default()).models.whitelist || external_mongoose_default().model("whitelist", WhitelistSchema));
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst protectAPI = (handler)=>{\n    return async (req, res)=>{\n        const referer = req.headers.referer;\n        const host = req.headers.host;\n        const reqKey = `${referer}${host}`;\n        if (reqKey !== `${process.env.REQ_VALIDATION}`) {\n            return res.status(403).json({\n                success: false,\n                message: `Forbidden`\n            });\n        }\n        return handler(req, res);\n    };\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (protectAPI);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9taWRkbGV3YXJlL3Byb3RlY3RBUEkuanMuanMiLCJtYXBwaW5ncyI6Ijs7OztBQUFBLEtBQUssQ0FBQ0EsVUFBVSxJQUFJQyxPQUFPLEdBQUssQ0FBQztJQUMvQixNQUFNLFFBQVFDLEdBQUcsRUFBRUMsR0FBRyxHQUFLLENBQUM7UUFDMUIsS0FBSyxDQUFDQyxPQUFPLEdBQUdGLEdBQUcsQ0FBQ0csT0FBTyxDQUFDRCxPQUFPO1FBQ25DLEtBQUssQ0FBQ0UsSUFBSSxHQUFHSixHQUFHLENBQUNHLE9BQU8sQ0FBQ0MsSUFBSTtRQUU3QixLQUFLLENBQUNDLE1BQU0sTUFBTUgsT0FBTyxHQUFHRSxJQUFJO1FBRWhDLEVBQUUsRUFBRUMsTUFBTSxRQUFRQyxPQUFPLENBQUNDLEdBQUcsQ0FBQ0MsY0FBYyxJQUFJLENBQUM7WUFDL0MsTUFBTSxDQUFDUCxHQUFHLENBQUNRLE1BQU0sQ0FBQyxHQUFHLEVBQUVDLElBQUksQ0FBQyxDQUFDO2dCQUFDQyxPQUFPLEVBQUUsS0FBSztnQkFBRUMsT0FBTyxHQUFHLFNBQVM7WUFBRSxDQUFDO1FBQ3RFLENBQUM7UUFDRCxNQUFNLENBQUNiLE9BQU8sQ0FBQ0MsR0FBRyxFQUFFQyxHQUFHO0lBQ3pCLENBQUM7QUFDSCxDQUFDO0FBRUQsaUVBQWVILFVBQVUsRUFBQyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL21pZGRsZXdhcmUvcHJvdGVjdEFQSS5qcz9lODQwIl0sInNvdXJjZXNDb250ZW50IjpbImNvbnN0IHByb3RlY3RBUEkgPSAoaGFuZGxlcikgPT4ge1xuICByZXR1cm4gYXN5bmMgKHJlcSwgcmVzKSA9PiB7XG4gICAgY29uc3QgcmVmZXJlciA9IHJlcS5oZWFkZXJzLnJlZmVyZXI7XG4gICAgY29uc3QgaG9zdCA9IHJlcS5oZWFkZXJzLmhvc3Q7XG5cbiAgICBjb25zdCByZXFLZXkgPSBgJHtyZWZlcmVyfSR7aG9zdH1gO1xuXG4gICAgaWYgKHJlcUtleSAhPT0gYCR7cHJvY2Vzcy5lbnYuUkVRX1ZBTElEQVRJT059YCkge1xuICAgICAgcmV0dXJuIHJlcy5zdGF0dXMoNDAzKS5qc29uKHsgc3VjY2VzczogZmFsc2UsIG1lc3NhZ2U6IGBGb3JiaWRkZW5gIH0pO1xuICAgIH1cbiAgICByZXR1cm4gaGFuZGxlcihyZXEsIHJlcyk7XG4gIH07XG59O1xuXG5leHBvcnQgZGVmYXVsdCBwcm90ZWN0QVBJO1xuIl0sIm5hbWVzIjpbInByb3RlY3RBUEkiLCJoYW5kbGVyIiwicmVxIiwicmVzIiwicmVmZXJlciIsImhlYWRlcnMiLCJob3N0IiwicmVxS2V5IiwicHJvY2VzcyIsImVudiIsIlJFUV9WQUxJREFUSU9OIiwic3RhdHVzIiwianNvbiIsInN1Y2Nlc3MiLCJtZXNzYWdlIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./middleware/protectAPI.js\n");
 
-// EXTERNAL MODULE: ./utils/sendMail.js
-var sendMail = __webpack_require__(271);
-;// CONCATENATED MODULE: ./pages/api/whitelist.js
+/***/ }),
 
+/***/ "./models/WhitelistSchema.js":
+/*!***********************************!*\
+  !*** ./models/WhitelistSchema.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n\nconst WhitelistSchema = new (mongoose__WEBPACK_IMPORTED_MODULE_0___default().Schema)({\n    wallet: {\n        type: String,\n        required: true\n    },\n    network: {\n        type: {\n            chainId: Number,\n            chainName: String\n        }\n    },\n    mailingStatus: {\n        type: String,\n        enum: [\n            \"unregistered\",\n            \"registered\"\n        ],\n        default: \"unregistered\"\n    }\n}, {\n    timestamps: true\n});\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((mongoose__WEBPACK_IMPORTED_MODULE_0___default().models.whitelist) || mongoose__WEBPACK_IMPORTED_MODULE_0___default().model(\"whitelist\", WhitelistSchema));\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9tb2RlbHMvV2hpdGVsaXN0U2NoZW1hLmpzLmpzIiwibWFwcGluZ3MiOiI7Ozs7OztBQUErQjtBQUUvQixLQUFLLENBQUNDLGVBQWUsR0FBRyxHQUFHLENBQUNELHdEQUFlLENBQ3pDLENBQUM7SUFDQ0csTUFBTSxFQUFFLENBQUM7UUFDUEMsSUFBSSxFQUFFQyxNQUFNO1FBQ1pDLFFBQVEsRUFBRSxJQUFJO0lBQ2hCLENBQUM7SUFDREMsT0FBTyxFQUFFLENBQUM7UUFDUkgsSUFBSSxFQUFFLENBQUM7WUFDTEksT0FBTyxFQUFFQyxNQUFNO1lBQ2ZDLFNBQVMsRUFBRUwsTUFBTTtRQUNuQixDQUFDO0lBQ0gsQ0FBQztJQUNETSxhQUFhLEVBQUUsQ0FBQztRQUNkUCxJQUFJLEVBQUVDLE1BQU07UUFDWk8sSUFBSSxFQUFFLENBQUM7WUFBQSxDQUFjO1lBQUUsQ0FBWTtRQUFBLENBQUM7UUFDcENDLE9BQU8sRUFBRSxDQUFjO0lBQ3pCLENBQUM7QUFDSCxDQUFDLEVBQ0QsQ0FBQztJQUNDQyxVQUFVLEVBQUUsSUFBSTtBQUNsQixDQUFDO0FBR0gsaUVBQWVkLGtFQUF5QixJQUN0Q0EscURBQWMsQ0FBQyxDQUFXLFlBQUVDLGVBQWUsQ0FBQyxFQUFDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vbW9kZWxzL1doaXRlbGlzdFNjaGVtYS5qcz8yNzM5Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBtb25nb29zZSBmcm9tIFwibW9uZ29vc2VcIjtcblxuY29uc3QgV2hpdGVsaXN0U2NoZW1hID0gbmV3IG1vbmdvb3NlLlNjaGVtYShcbiAge1xuICAgIHdhbGxldDoge1xuICAgICAgdHlwZTogU3RyaW5nLFxuICAgICAgcmVxdWlyZWQ6IHRydWUsXG4gICAgfSxcbiAgICBuZXR3b3JrOiB7XG4gICAgICB0eXBlOiB7XG4gICAgICAgIGNoYWluSWQ6IE51bWJlcixcbiAgICAgICAgY2hhaW5OYW1lOiBTdHJpbmcsXG4gICAgICB9LFxuICAgIH0sXG4gICAgbWFpbGluZ1N0YXR1czoge1xuICAgICAgdHlwZTogU3RyaW5nLFxuICAgICAgZW51bTogW1widW5yZWdpc3RlcmVkXCIsIFwicmVnaXN0ZXJlZFwiXSxcbiAgICAgIGRlZmF1bHQ6IFwidW5yZWdpc3RlcmVkXCIsXG4gICAgfSxcbiAgfSxcbiAge1xuICAgIHRpbWVzdGFtcHM6IHRydWUsXG4gIH1cbik7XG5cbmV4cG9ydCBkZWZhdWx0IG1vbmdvb3NlLm1vZGVscy53aGl0ZWxpc3QgfHxcbiAgbW9uZ29vc2UubW9kZWwoXCJ3aGl0ZWxpc3RcIiwgV2hpdGVsaXN0U2NoZW1hKTtcbiJdLCJuYW1lcyI6WyJtb25nb29zZSIsIldoaXRlbGlzdFNjaGVtYSIsIlNjaGVtYSIsIndhbGxldCIsInR5cGUiLCJTdHJpbmciLCJyZXF1aXJlZCIsIm5ldHdvcmsiLCJjaGFpbklkIiwiTnVtYmVyIiwiY2hhaW5OYW1lIiwibWFpbGluZ1N0YXR1cyIsImVudW0iLCJkZWZhdWx0IiwidGltZXN0YW1wcyIsIm1vZGVscyIsIndoaXRlbGlzdCIsIm1vZGVsIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./models/WhitelistSchema.js\n");
 
+/***/ }),
 
-async function handler(req, res) {
-    await db/* default.getInstance */.Z.getInstance();
-    const { method  } = req;
-    const { wallet: userWallet  } = req.query;
-    switch(method){
-        case "GET":
-            const query = userWallet ? {
-                wallet: userWallet
-            } : {
-            };
-            try {
-                const whitelists = await models_WhitelistSchema.find(query);
-                res.json({
-                    status: 200,
-                    message: "Success getting whitelist data",
-                    data: whitelists
-                });
-            } catch (error) {
-                res.json({
-                    status: 500,
-                    error: "Server error"
-                });
-            }
-            break;
-        case "POST":
-            const { network , wallet  } = req.body;
-            const isWalletValid = wallet.substring(0, 2) === "0x" && wallet.length === 42;
-            if (isWalletValid) {
-                try {
-                    const newWhitelist = {
-                        wallet,
-                        network
-                    };
-                    const createdWhitelist = await models_WhitelistSchema.create(newWhitelist);
-                    res.json({
-                        status: 201,
-                        message: "Success adding wallet to whitelist",
-                        data: createdWhitelist
-                    });
-                } catch (error) {
-                    res.json({
-                        status: 500,
-                        error: "Server error"
-                    });
-                }
-            } else {
-                res.json({
-                    status: 400,
-                    error: "Invalid input"
-                });
-            }
-            break;
-        case "PUT":
-            try {
-                const { email , wallet  } = req.body;
-                const isWalletValid = await models_WhitelistSchema.findOne({
-                    wallet
-                });
-                if (isWalletValid) {
-                    isWalletValid.mailingStatus = "registered";
-                    const updatedUser = await isWalletValid.save();
-                    await (0,sendMail/* sendWelcomeMail */.QR)(email);
-                    res.json({
-                        status: 201,
-                        message: "Success updating mailing status",
-                        data: updatedUser
-                    });
-                } else {
-                    res.json({
-                        status: 400,
-                        error: "Invalid input"
-                    });
-                }
-            } catch (error1) {
-                res.json({
-                    status: 500,
-                    error: "Server error"
-                });
-            }
-            break;
-        default:
-            res.json({
-                status: 405,
-                error: "Method is not allowed, only accept GET, POST, and PUT"
-            });
-            break;
-    }
-}
-/* harmony default export */ const whitelist = ((0,protectAPI/* default */.Z)(handler));
+/***/ "./pages/api/whitelist.js":
+/*!********************************!*\
+  !*** ./pages/api/whitelist.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _config_db_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../config/db.js */ \"./config/db.js\");\n/* harmony import */ var _middleware_protectAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../middleware/protectAPI.js */ \"./middleware/protectAPI.js\");\n/* harmony import */ var _models_WhitelistSchema_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../models/WhitelistSchema.js */ \"./models/WhitelistSchema.js\");\n/* harmony import */ var _utils_sendMail_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/sendMail.js */ \"./utils/sendMail.js\");\n\n\n\n\nasync function handler(req, res) {\n    await _config_db_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"].getInstance();\n    const { method  } = req;\n    const { wallet: userWallet  } = req.query;\n    switch(method){\n        case \"GET\":\n            const query = userWallet ? {\n                wallet: userWallet\n            } : {\n            };\n            try {\n                const whitelists = await _models_WhitelistSchema_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].find(query);\n                res.json({\n                    status: 200,\n                    message: \"Success getting whitelist data\",\n                    data: whitelists\n                });\n            } catch (error) {\n                res.json({\n                    status: 500,\n                    error: \"Server error\"\n                });\n            }\n            break;\n        case \"POST\":\n            const { network , wallet  } = req.body;\n            const isWalletValid = wallet.substring(0, 2) === \"0x\" && wallet.length === 42;\n            if (isWalletValid) {\n                try {\n                    const newWhitelist = {\n                        wallet,\n                        network\n                    };\n                    const createdWhitelist = await _models_WhitelistSchema_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].create(newWhitelist);\n                    res.json({\n                        status: 201,\n                        message: \"Success adding wallet to whitelist\",\n                        data: createdWhitelist\n                    });\n                } catch (error) {\n                    res.json({\n                        status: 500,\n                        error: \"Server error\"\n                    });\n                }\n            } else {\n                res.json({\n                    status: 400,\n                    error: \"Invalid input\"\n                });\n            }\n            break;\n        case \"PUT\":\n            try {\n                const { email , wallet  } = req.body;\n                const isWalletValid = await _models_WhitelistSchema_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].findOne({\n                    wallet\n                });\n                if (isWalletValid) {\n                    isWalletValid.mailingStatus = \"registered\";\n                    const updatedUser = await isWalletValid.save();\n                    await (0,_utils_sendMail_js__WEBPACK_IMPORTED_MODULE_3__.sendWelcomeMail)(email);\n                    res.json({\n                        status: 201,\n                        message: \"Success updating mailing status\",\n                        data: updatedUser\n                    });\n                } else {\n                    res.json({\n                        status: 400,\n                        error: \"Invalid input\"\n                    });\n                }\n            } catch (error1) {\n                res.json({\n                    status: 500,\n                    error: \"Server error\"\n                });\n            }\n            break;\n        default:\n            res.json({\n                status: 405,\n                error: \"Method is not allowed, only accept GET, POST, and PUT\"\n            });\n            break;\n    }\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_middleware_protectAPI_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(handler));\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,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b0JBRTFDLEtBQUssQ0FBQ0MsV0FBVyxHQUFHLEtBQUssQ0FBQ1QsYUFBYSxDQUFDVSxJQUFJO29CQUU1QyxLQUFLLENBQUM1QixtRUFBZSxDQUFDd0IsS0FBSztvQkFFM0JyQixHQUFHLENBQUNRLElBQUksQ0FBQyxDQUFDO3dCQUNSQyxNQUFNLEVBQUUsR0FBRzt3QkFDWEMsT0FBTyxFQUFFLENBQWlDO3dCQUMxQ0MsSUFBSSxFQUFFYSxXQUFXO29CQUNuQixDQUFDO2dCQUNILENBQUMsTUFBTSxDQUFDO29CQUNOeEIsR0FBRyxDQUFDUSxJQUFJLENBQUMsQ0FBQzt3QkFDUkMsTUFBTSxFQUFFLEdBQUc7d0JBQ1hHLEtBQUssRUFBRSxDQUFlO29CQUN4QixDQUFDO2dCQUNILENBQUM7WUFDSCxDQUFDLENBQUMsS0FBSyxFQUFFQSxNQUFLLEVBQUUsQ0FBQztnQkFDZlosR0FBRyxDQUFDUSxJQUFJLENBQUMsQ0FBQztvQkFDUkMsTUFBTSxFQUFFLEdBQUc7b0JBQ1hHLEtBQUssRUFBRSxDQUFjO2dCQUN2QixDQUFDO1lBQ0gsQ0FBQztZQUNELEtBQUs7O1lBRUxaLEdBQUcsQ0FBQ1EsSUFBSSxDQUFDLENBQUM7Z0JBQ1JDLE1BQU0sRUFBRSxHQUFHO2dCQUNYRyxLQUFLLEVBQUUsQ0FBdUQ7WUFDaEUsQ0FBQztZQUNELEtBQUs7O0FBRVgsQ0FBQztBQUVELGlFQUFlakIscUVBQVUsQ0FBQ0csT0FBTyxDQUFDLEVBQUMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9wYWdlcy9hcGkvd2hpdGVsaXN0LmpzP2M3NDUiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IE1vbmdvREIgZnJvbSBcIi4uLy4uL2NvbmZpZy9kYi5qc1wiO1xuaW1wb3J0IHByb3RlY3RBUEkgZnJvbSBcIi4uLy4uL21pZGRsZXdhcmUvcHJvdGVjdEFQSS5qc1wiO1xuaW1wb3J0IFdoaXRlbGlzdCBmcm9tIFwiLi4vLi4vbW9kZWxzL1doaXRlbGlzdFNjaGVtYS5qc1wiO1xuaW1wb3J0IHsgc2VuZFdlbGNvbWVNYWlsIH0gZnJvbSBcIi4uLy4uL3V0aWxzL3NlbmRNYWlsLmpzXCI7XG5cbmFzeW5jIGZ1bmN0aW9uIGhhbmRsZXIocmVxLCByZXMpIHtcbiAgYXdhaXQgTW9uZ29EQi5nZXRJbnN0YW5jZSgpO1xuXG4gIGNvbnN0IHsgbWV0aG9kIH0gPSByZXE7XG4gIGNvbnN0IHsgd2FsbGV0OiB1c2VyV2FsbGV0IH0gPSByZXEucXVlcnk7XG5cbiAgc3dpdGNoIChtZXRob2QpIHtcbiAgICBjYXNlIFwiR0VUXCI6XG4gICAgICBjb25zdCBxdWVyeSA9IHVzZXJXYWxsZXQgPyB7IHdhbGxldDogdXNlcldhbGxldCB9IDoge307XG5cbiAgICAgIHRyeSB7XG4gICAgICAgIGNvbnN0IHdoaXRlbGlzdHMgPSBhd2FpdCBXaGl0ZWxpc3QuZmluZChxdWVyeSk7XG5cbiAgICAgICAgcmVzLmpzb24oe1xuICAgICAgICAgIHN0YXR1czogMjAwLFxuICAgICAgICAgIG1lc3NhZ2U6IFwiU3VjY2VzcyBnZXR0aW5nIHdoaXRlbGlzdCBkYXRhXCIsXG4gICAgICAgICAgZGF0YTogd2hpdGVsaXN0cyxcbiAgICAgICAgfSk7XG4gICAgICB9IGNhdGNoIChlcnJvcikge1xuICAgICAgICByZXMuanNvbih7XG4gICAgICAgICAgc3RhdHVzOiA1MDAsXG4gICAgICAgICAgZXJyb3I6IFwiU2VydmVyIGVycm9yXCIsXG4gICAgICAgIH0pO1xuICAgICAgfVxuICAgICAgYnJlYWs7XG4gICAgY2FzZSBcIlBPU1RcIjpcbiAgICAgIGNvbnN0IHsgbmV0d29yaywgd2FsbGV0IH0gPSByZXEuYm9keTtcblxuICAgICAgY29uc3QgaXNXYWxsZXRWYWxpZCA9XG4gICAgICAgIHdhbGxldC5zdWJzdHJpbmcoMCwgMikgPT09IFwiMHhcIiAmJiB3YWxsZXQubGVuZ3RoID09PSA0MjtcblxuICAgICAgaWYgKGlzV2FsbGV0VmFsaWQpIHtcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBjb25zdCBuZXdXaGl0ZWxpc3QgPSB7IHdhbGxldCwgbmV0d29yayB9O1xuXG4gICAgICAgICAgY29uc3QgY3JlYXRlZFdoaXRlbGlzdCA9IGF3YWl0IFdoaXRlbGlzdC5jcmVhdGUobmV3V2hpdGVsaXN0KTtcblxuICAgICAgICAgIHJlcy5qc29uKHtcbiAgICAgICAgICAgIHN0YXR1czogMjAxLFxuICAgICAgICAgICAgbWVzc2FnZTogXCJTdWNjZXNzIGFkZGluZyB3YWxsZXQgdG8gd2hpdGVsaXN0XCIsXG4gICAgICAgICAgICBkYXRhOiBjcmVhdGVkV2hpdGVsaXN0LFxuICAgICAgICAgIH0pO1xuICAgICAgICB9IGNhdGNoIChlcnJvcikge1xuICAgICAgICAgIHJlcy5qc29uKHtcbiAgICAgICAgICAgIHN0YXR1czogNTAwLFxuICAgICAgICAgICAgZXJyb3I6IFwiU2VydmVyIGVycm9yXCIsXG4gICAgICAgICAgfSk7XG4gICAgICAgIH1cbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIHJlcy5qc29uKHtcbiAgICAgICAgICBzdGF0dXM6IDQwMCxcbiAgICAgICAgICBlcnJvcjogXCJJbnZhbGlkIGlucHV0XCIsXG4gICAgICAgIH0pO1xuICAgICAgfVxuICAgICAgYnJlYWs7XG4gICAgY2FzZSBcIlBVVFwiOlxuICAgICAgdHJ5IHtcbiAgICAgICAgY29uc3QgeyBlbWFpbCwgd2FsbGV0IH0gPSByZXEuYm9keTtcblxuICAgICAgICBjb25zdCBpc1dhbGxldFZhbGlkID0gYXdhaXQgV2hpdGVsaXN0LmZpbmRPbmUoeyB3YWxsZXQgfSk7XG5cbiAgICAgICAgaWYgKGlzV2FsbGV0VmFsaWQpIHtcbiAgICAgICAgICBpc1dhbGxldFZhbGlkLm1haWxpbmdTdGF0dXMgPSBcInJlZ2lzdGVyZWRcIjtcblxuICAgICAgICAgIGNvbnN0IHVwZGF0ZWRVc2VyID0gYXdhaXQgaXNXYWxsZXRWYWxpZC5zYXZlKCk7XG5cbiAgICAgICAgICBhd2FpdCBzZW5kV2VsY29tZU1haWwoZW1haWwpO1xuXG4gICAgICAgICAgcmVzLmpzb24oe1xuICAgICAgICAgICAgc3RhdHVzOiAyMDEsXG4gICAgICAgICAgICBtZXNzYWdlOiBcIlN1Y2Nlc3MgdXBkYXRpbmcgbWFpbGluZyBzdGF0dXNcIixcbiAgICAgICAgICAgIGRhdGE6IHVwZGF0ZWRVc2VyLFxuICAgICAgICAgIH0pO1xuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgIHJlcy5qc29uKHtcbiAgICAgICAgICAgIHN0YXR1czogNDAwLFxuICAgICAgICAgICAgZXJyb3I6IFwiSW52YWxpZCBpbnB1dFwiLFxuICAgICAgICAgIH0pO1xuICAgICAgICB9XG4gICAgICB9IGNhdGNoIChlcnJvcikge1xuICAgICAgICByZXMuanNvbih7XG4gICAgICAgICAgc3RhdHVzOiA1MDAsXG4gICAgICAgICAgZXJyb3I6IFwiU2VydmVyIGVycm9yXCIsXG4gICAgICAgIH0pO1xuICAgICAgfVxuICAgICAgYnJlYWs7XG4gICAgZGVmYXVsdDpcbiAgICAgIHJlcy5qc29uKHtcbiAgICAgICAgc3RhdHVzOiA0MDUsXG4gICAgICAgIGVycm9yOiBcIk1ldGhvZCBpcyBub3QgYWxsb3dlZCwgb25seSBhY2NlcHQgR0VULCBQT1NULCBhbmQgUFVUXCIsXG4gICAgICB9KTtcbiAgICAgIGJyZWFrO1xuICB9XG59XG5cbmV4cG9ydCBkZWZhdWx0IHByb3RlY3RBUEkoaGFuZGxlcik7XG4iXSwibmFtZXMiOlsiTW9uZ29EQiIsInByb3RlY3RBUEkiLCJXaGl0ZWxpc3QiLCJzZW5kV2VsY29tZU1haWwiLCJoYW5kbGVyIiwicmVxIiwicmVzIiwiZ2V0SW5zdGFuY2UiLCJtZXRob2QiLCJ3YWxsZXQiLCJ1c2VyV2FsbGV0IiwicXVlcnkiLCJ3aGl0ZWxpc3RzIiwiZmluZCIsImpzb24iLCJzdGF0dXMiLCJtZXNzYWdlIiwiZGF0YSIsImVycm9yIiwibmV0d29yayIsImJvZHkiLCJpc1dhbGxldFZhbGlkIiwic3Vic3RyaW5nIiwibGVuZ3RoIiwibmV3V2hpdGVsaXN0IiwiY3JlYXRlZFdoaXRlbGlzdCIsImNyZWF0ZSIsImVtYWlsIiwiZmluZE9uZSIsIm1haWxpbmdTdGF0dXMiLCJ1cGRhdGVkVXNlciIsInNhdmUiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./pages/api/whitelist.js\n");
+
+/***/ }),
+
+/***/ "./utils/sendMail.js":
+/*!***************************!*\
+  !*** ./utils/sendMail.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"sendMail\": () => (/* binding */ sendMail),\n/* harmony export */   \"sendWelcomeMail\": () => (/* binding */ sendWelcomeMail),\n/* harmony export */   \"sendUnsubscribeMail\": () => (/* binding */ sendUnsubscribeMail)\n/* harmony export */ });\n/* harmony import */ var nodemailer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nodemailer */ \"nodemailer\");\n/* harmony import */ var nodemailer__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nodemailer__WEBPACK_IMPORTED_MODULE_0__);\n\n// async..await is not allowed in global scope, must use a wrapper\nasync function sendMail(to, subject, template) {\n    // create reusable transporter object using the default SMTP transport\n    let transporter = nodemailer__WEBPACK_IMPORTED_MODULE_0___default().createTransport({\n        host: \"smtp.mailgun.org\",\n        port: 587,\n        secure: false,\n        auth: {\n            user: process.env.EMAIL_USER,\n            pass: process.env.EMAIL_PASS\n        }\n    });\n    try {\n        // send mail with defined transport object\n        let info = await transporter.sendMail({\n            from: '\"Plotland\" <no-reply@plotland.one>',\n            to,\n            subject,\n            html: template\n        });\n        console.log(\"Message sent: \", info.messageId);\n    } catch (error) {\n        console.error(error);\n    }\n}\nasync function sendWelcomeMail(to) {\n    const subject = \"Welcome to Plotland\";\n    const template = `\n  <h1>Plot Subscription E-Mail</h1>\n  <p>You are now subscribed to the Plot whitelist.</p> \n  <p>We will send another E-Mail on the 31st. of January 2022 to remind you of the upcomming release on February the 1st.</p> \n  <br/>\n  \n  <p>With best regards, <br/> your Plot Team.</p>\n  \n  <br/>\n  <p>This Mail was automatically generated.</p>\n\n  <a href='${process.env.DOMAIN}/api/mailing/unsubsribe?email=${to}'>Unsubscribe</a>\n  \n  <p><strong>Plotland.one</strong></p> \n  \n  <ul>\n    <li>\n      <a href='https://plot.bukithub.com'>Discord</a>\n    </li>\n\n    <li>\n      <a href='https://plot.bukithub.com'>Twitter</a>\n    </li>\n\n    <li>\n      <a href='https://plot.bukithub.com'>Reddit</a>\n    </li>\n  </ul>\n`;\n    try {\n        await sendMail(to, subject, template);\n    } catch (error) {\n        console.error(error);\n    }\n}\nasync function sendUnsubscribeMail(to) {\n    const subject = \"Goodbye Plotlander!\";\n    const template = `\n  <h1>Plot Unsubscribe E-Mail</h1>\n  <p>You canceled your subscription for the Plot whitelist.</p> \n  <br/>\n  \n  <p>With best regards, <br/> your Plot Team.</p>\n  \n  <br/>\n  <p>This Mail was automatically generated.</p>\n\n  <a href='${process.env.DOMAIN}/api/mailing/unsubsribe?email=${to}'>Unsubscribe</a>\n  \n  <p><strong>Plotland.one</strong></p> \n  \n  <ul>\n    <li>\n      <a href='https://plot.bukithub.com'>Discord</a>\n    </li>\n\n    <li>\n      <a href='https://plot.bukithub.com'>Twitter</a>\n    </li>\n\n    <li>\n      <a href='https://plot.bukithub.com'>Reddit</a>\n    </li>\n  </ul>\n`;\n    await sendMail(to, subject, template);\n}\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi91dGlscy9zZW5kTWFpbC5qcy5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUFtQztBQUVuQyxFQUFrRTtlQUNuREMsUUFBUSxDQUFDQyxFQUFFLEVBQUVDLE9BQU8sRUFBRUMsUUFBUSxFQUFFLENBQUM7SUFDOUMsRUFBc0U7SUFDdEUsR0FBRyxDQUFDQyxXQUFXLEdBQUdMLGlFQUEwQixDQUFDLENBQUM7UUFDNUNPLElBQUksRUFBRSxDQUFrQjtRQUN4QkMsSUFBSSxFQUFFLEdBQUc7UUFDVEMsTUFBTSxFQUFFLEtBQUs7UUFDYkMsSUFBSSxFQUFFLENBQUM7WUFDTEMsSUFBSSxFQUFFQyxPQUFPLENBQUNDLEdBQUcsQ0FBQ0MsVUFBVTtZQUM1QkMsSUFBSSxFQUFFSCxPQUFPLENBQUNDLEdBQUcsQ0FBQ0csVUFBVTtRQUM5QixDQUFDO0lBQ0gsQ0FBQztJQUVELEdBQUcsQ0FBQyxDQUFDO1FBQ0gsRUFBMEM7UUFDMUMsR0FBRyxDQUFDQyxJQUFJLEdBQUcsS0FBSyxDQUFDWixXQUFXLENBQUNKLFFBQVEsQ0FBQyxDQUFDO1lBQ3JDaUIsSUFBSSxFQUFFLENBQW9DO1lBQzFDaEIsRUFBRTtZQUNGQyxPQUFPO1lBQ1BnQixJQUFJLEVBQUVmLFFBQVE7UUFDaEIsQ0FBQztRQUVEZ0IsT0FBTyxDQUFDQyxHQUFHLENBQUMsQ0FBZ0IsaUJBQUVKLElBQUksQ0FBQ0ssU0FBUztJQUM5QyxDQUFDLENBQUMsS0FBSyxFQUFFQyxLQUFLLEVBQUUsQ0FBQztRQUNmSCxPQUFPLENBQUNHLEtBQUssQ0FBQ0EsS0FBSztJQUNyQixDQUFDO0FBQ0gsQ0FBQztlQUVjQyxlQUFlLENBQUN0QixFQUFFLEVBQUUsQ0FBQztJQUNsQyxLQUFLLENBQUNDLE9BQU8sR0FBRyxDQUFxQjtJQUVyQyxLQUFLLENBQUNDLFFBQVEsSUFBSTtJQThCbEIsR0FBRyxDQUFDLENBQUM7UUFDSCxLQUFLLENBQUNILFFBQVEsQ0FBQ0MsRUFBRSxFQUFFQyxPQUFPLEVBQUVDLFFBQVE7SUFDdEMsQ0FBQyxDQUFDLEtBQUssRUFBRW1CLEtBQUssRUFBRSxDQUFDOzs7QUFHbkIsQ0FBQzs7SUFHQztJQUVBLEtBQUssQ0FBQ25CLFFBQVEsSUFBSTs7QUE2QnBCLENBQUM7QUFFRCIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3V0aWxzL3NlbmRNYWlsLmpzP2NlMWUiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IG5vZGVtYWlsZXIgZnJvbSBcIm5vZGVtYWlsZXJcIjtcblxuLy8gYXN5bmMuLmF3YWl0IGlzIG5vdCBhbGxvd2VkIGluIGdsb2JhbCBzY29wZSwgbXVzdCB1c2UgYSB3cmFwcGVyXG5hc3luYyBmdW5jdGlvbiBzZW5kTWFpbCh0bywgc3ViamVjdCwgdGVtcGxhdGUpIHtcbiAgLy8gY3JlYXRlIHJldXNhYmxlIHRyYW5zcG9ydGVyIG9iamVjdCB1c2luZyB0aGUgZGVmYXVsdCBTTVRQIHRyYW5zcG9ydFxuICBsZXQgdHJhbnNwb3J0ZXIgPSBub2RlbWFpbGVyLmNyZWF0ZVRyYW5zcG9ydCh7XG4gICAgaG9zdDogXCJzbXRwLm1haWxndW4ub3JnXCIsXG4gICAgcG9ydDogNTg3LFxuICAgIHNlY3VyZTogZmFsc2UsXG4gICAgYXV0aDoge1xuICAgICAgdXNlcjogcHJvY2Vzcy5lbnYuRU1BSUxfVVNFUixcbiAgICAgIHBhc3M6IHByb2Nlc3MuZW52LkVNQUlMX1BBU1MsXG4gICAgfSxcbiAgfSk7XG5cbiAgdHJ5IHtcbiAgICAvLyBzZW5kIG1haWwgd2l0aCBkZWZpbmVkIHRyYW5zcG9ydCBvYmplY3RcbiAgICBsZXQgaW5mbyA9IGF3YWl0IHRyYW5zcG9ydGVyLnNlbmRNYWlsKHtcbiAgICAgIGZyb206ICdcIlBsb3RsYW5kXCIgPG5vLXJlcGx5QHBsb3RsYW5kLm9uZT4nLCAvLyBzZW5kZXIgYWRkcmVzc1xuICAgICAgdG8sIC8vIGxpc3Qgb2YgcmVjZWl2ZXJzXG4gICAgICBzdWJqZWN0LCAvLyBTdWJqZWN0IGxpbmVcbiAgICAgIGh0bWw6IHRlbXBsYXRlLCAvLyBodG1sIGJvZHlcbiAgICB9KTtcblxuICAgIGNvbnNvbGUubG9nKFwiTWVzc2FnZSBzZW50OiBcIiwgaW5mby5tZXNzYWdlSWQpO1xuICB9IGNhdGNoIChlcnJvcikge1xuICAgIGNvbnNvbGUuZXJyb3IoZXJyb3IpO1xuICB9XG59XG5cbmFzeW5jIGZ1bmN0aW9uIHNlbmRXZWxjb21lTWFpbCh0bykge1xuICBjb25zdCBzdWJqZWN0ID0gXCJXZWxjb21lIHRvIFBsb3RsYW5kXCI7XG5cbiAgY29uc3QgdGVtcGxhdGUgPSBgXG4gIDxoMT5QbG90IFN1YnNjcmlwdGlvbiBFLU1haWw8L2gxPlxuICA8cD5Zb3UgYXJlIG5vdyBzdWJzY3JpYmVkIHRvIHRoZSBQbG90IHdoaXRlbGlzdC48L3A+IFxuICA8cD5XZSB3aWxsIHNlbmQgYW5vdGhlciBFLU1haWwgb24gdGhlIDMxc3QuIG9mIEphbnVhcnkgMjAyMiB0byByZW1pbmQgeW91IG9mIHRoZSB1cGNvbW1pbmcgcmVsZWFzZSBvbiBGZWJydWFyeSB0aGUgMXN0LjwvcD4gXG4gIDxici8+XG4gIFxuICA8cD5XaXRoIGJlc3QgcmVnYXJkcywgPGJyLz4geW91ciBQbG90IFRlYW0uPC9wPlxuICBcbiAgPGJyLz5cbiAgPHA+VGhpcyBNYWlsIHdhcyBhdXRvbWF0aWNhbGx5IGdlbmVyYXRlZC48L3A+XG5cbiAgPGEgaHJlZj0nJHtwcm9jZXNzLmVudi5ET01BSU59L2FwaS9tYWlsaW5nL3Vuc3Vic3JpYmU/ZW1haWw9JHt0b30nPlVuc3Vic2NyaWJlPC9hPlxuICBcbiAgPHA+PHN0cm9uZz5QbG90bGFuZC5vbmU8L3N0cm9uZz48L3A+IFxuICBcbiAgPHVsPlxuICAgIDxsaT5cbiAgICAgIDxhIGhyZWY9J2h0dHBzOi8vcGxvdC5idWtpdGh1Yi5jb20nPkRpc2NvcmQ8L2E+XG4gICAgPC9saT5cblxuICAgIDxsaT5cbiAgICAgIDxhIGhyZWY9J2h0dHBzOi8vcGxvdC5idWtpdGh1Yi5jb20nPlR3aXR0ZXI8L2E+XG4gICAgPC9saT5cblxuICAgIDxsaT5cbiAgICAgIDxhIGhyZWY9J2h0dHBzOi8vcGxvdC5idWtpdGh1Yi5jb20nPlJlZGRpdDwvYT5cbiAgICA8L2xpPlxuICA8L3VsPlxuYDtcblxuICB0cnkge1xuICAgIGF3YWl0IHNlbmRNYWlsKHRvLCBzdWJqZWN0LCB0ZW1wbGF0ZSk7XG4gIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgY29uc29sZS5lcnJvcihlcnJvcik7XG4gIH1cbn1cblxuYXN5bmMgZnVuY3Rpb24gc2VuZFVuc3Vic2NyaWJlTWFpbCh0bykge1xuICBjb25zdCBzdWJqZWN0ID0gXCJHb29kYnllIFBsb3RsYW5kZXIhXCI7XG5cbiAgY29uc3QgdGVtcGxhdGUgPSBgXG4gIDxoMT5QbG90IFVuc3Vic2NyaWJlIEUtTWFpbDwvaDE+XG4gIDxwPllvdSBjYW5jZWxlZCB5b3VyIHN1YnNjcmlwdGlvbiBmb3IgdGhlIFBsb3Qgd2hpdGVsaXN0LjwvcD4gXG4gIDxici8+XG4gIFxuICA8cD5XaXRoIGJlc3QgcmVnYXJkcywgPGJyLz4geW91ciBQbG90IFRlYW0uPC9wPlxuICBcbiAgPGJyLz5cbiAgPHA+VGhpcyBNYWlsIHdhcyBhdXRvbWF0aWNhbGx5IGdlbmVyYXRlZC48L3A+XG5cbiAgPGEgaHJlZj0nJHtwcm9jZXNzLmVudi5ET01BSU59L2FwaS9tYWlsaW5nL3Vuc3Vic3JpYmU/ZW1haWw9JHt0b30nPlVuc3Vic2NyaWJlPC9hPlxuICBcbiAgPHA+PHN0cm9uZz5QbG90bGFuZC5vbmU8L3N0cm9uZz48L3A+IFxuICBcbiAgPHVsPlxuICAgIDxsaT5cbiAgICAgIDxhIGhyZWY9J2h0dHBzOi8vcGxvdC5idWtpdGh1Yi5jb20nPkRpc2NvcmQ8L2E+XG4gICAgPC9saT5cblxuICAgIDxsaT5cbiAgICAgIDxhIGhyZWY9J2h0dHBzOi8vcGxvdC5idWtpdGh1Yi5jb20nPlR3aXR0ZXI8L2E+XG4gICAgPC9saT5cblxuICAgIDxsaT5cbiAgICAgIDxhIGhyZWY9J2h0dHBzOi8vcGxvdC5idWtpdGh1Yi5jb20nPlJlZGRpdDwvYT5cbiAgICA8L2xpPlxuICA8L3VsPlxuYDtcbiAgYXdhaXQgc2VuZE1haWwodG8sIHN1YmplY3QsIHRlbXBsYXRlKTtcbn1cblxuZXhwb3J0IHsgc2VuZE1haWwsIHNlbmRXZWxjb21lTWFpbCwgc2VuZFVuc3Vic2NyaWJlTWFpbCB9O1xuIl0sIm5hbWVzIjpbIm5vZGVtYWlsZXIiLCJzZW5kTWFpbCIsInRvIiwic3ViamVjdCIsInRlbXBsYXRlIiwidHJhbnNwb3J0ZXIiLCJjcmVhdGVUcmFuc3BvcnQiLCJob3N0IiwicG9ydCIsInNlY3VyZSIsImF1dGgiLCJ1c2VyIiwicHJvY2VzcyIsImVudiIsIkVNQUlMX1VTRVIiLCJwYXNzIiwiRU1BSUxfUEFTUyIsImluZm8iLCJmcm9tIiwiaHRtbCIsImNvbnNvbGUiLCJsb2ciLCJtZXNzYWdlSWQiLCJlcnJvciIsInNlbmRXZWxjb21lTWFpbCIsIkRPTUFJTiIsInNlbmRVbnN1YnNjcmliZU1haWwiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./utils/sendMail.js\n");
 
 /***/ })
 
@@ -170,7 +90,7 @@ async function handler(req, res) {
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [78,271], () => (__webpack_exec__(519)));
+var __webpack_exports__ = (__webpack_exec__("./pages/api/whitelist.js"));
 module.exports = __webpack_exports__;
 
 })();

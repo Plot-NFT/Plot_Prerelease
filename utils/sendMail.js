@@ -1,4 +1,13 @@
 import nodemailer from "nodemailer";
+import ejs from "ejs";
+import { readFile } from "fs/promises";
+import moduleName from "../email/index.html";
+
+const readHTMLFile = async (path) => {
+  const template = await readFile(path, { encoding: "utf-8" });
+
+  return template;
+};
 
 // async..await is not allowed in global scope, must use a wrapper
 async function sendMail(to, subject, template) {
@@ -31,35 +40,8 @@ async function sendMail(to, subject, template) {
 async function sendWelcomeMail(to) {
   const subject = "Welcome to Plotland";
 
-  const template = `
-  <h1>Plot Subscription E-Mail</h1>
-  <p>You are now subscribed to the Plot whitelist.</p> 
-  <p>We will send another E-Mail on the 31st. of January 2022 to remind you of the upcomming release on February the 1st.</p> 
-  <br/>
-  
-  <p>With best regards, <br/> your Plot Team.</p>
-  
-  <br/>
-  <p>This Mail was automatically generated.</p>
-
-  <a href='${process.env.DOMAIN}/api/mailing/unsubsribe?email=${to}'>Unsubscribe</a>
-  
-  <p><strong>Plotland.one</strong></p> 
-  
-  <ul>
-    <li>
-      <a href='https://plot.bukithub.com'>Discord</a>
-    </li>
-
-    <li>
-      <a href='https://plot.bukithub.com'>Twitter</a>
-    </li>
-
-    <li>
-      <a href='https://plot.bukithub.com'>Reddit</a>
-    </li>
-  </ul>
-`;
+  const html = await readHTMLFile("../email/subscribe.html");
+  const template = ejs.render(html, { domain: process.env.DOMAIN, to });
 
   try {
     await sendMail(to, subject, template);
@@ -71,34 +53,8 @@ async function sendWelcomeMail(to) {
 async function sendUnsubscribeMail(to) {
   const subject = "Goodbye Plotlander!";
 
-  const template = `
-  <h1>Plot Unsubscribe E-Mail</h1>
-  <p>You canceled your subscription for the Plot whitelist.</p> 
-  <br/>
-  
-  <p>With best regards, <br/> your Plot Team.</p>
-  
-  <br/>
-  <p>This Mail was automatically generated.</p>
+  const template = await readHTMLFile("../email/unsubscribe.html");
 
-  <a href='${process.env.DOMAIN}/api/mailing/unsubsribe?email=${to}'>Unsubscribe</a>
-  
-  <p><strong>Plotland.one</strong></p> 
-  
-  <ul>
-    <li>
-      <a href='https://plot.bukithub.com'>Discord</a>
-    </li>
-
-    <li>
-      <a href='https://plot.bukithub.com'>Twitter</a>
-    </li>
-
-    <li>
-      <a href='https://plot.bukithub.com'>Reddit</a>
-    </li>
-  </ul>
-`;
   await sendMail(to, subject, template);
 }
 

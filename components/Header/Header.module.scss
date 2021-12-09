@@ -12,7 +12,7 @@
   img:hover {
     cursor: pointer;
     animation-name: pin;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
   }
 }
 
@@ -43,7 +43,7 @@
   50% {
     transform: translateY(-10%) rotate(-26deg);
   }
-  75% {
+  65% {
     transform: translateY(0%) rotate(-26deg);
   }
   100% {

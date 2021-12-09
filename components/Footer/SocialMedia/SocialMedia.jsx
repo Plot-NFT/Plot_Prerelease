@@ -1,25 +1,32 @@
+/* eslint-disable react/react-in-jsx-scope */
 import styles from "./SocialMedia.module.scss";
 
 const SocialMedia = () => {
   return (
     <div className={styles.wrapper}>
-      <img
-        className={styles.discord}
-        src="/assets/discord.png"
-        alt="discord Logo"
-      />
+      <a href="/">
+        <img
+          className={styles.discord}
+          src="/assets/discord.png"
+          alt="discord Logo"
+        />
+      </a>
 
-      <img
-        className={styles.reddit}
-        src="/assets/reddit.png"
-        alt="Reddit Logo"
-      />
+      <a href="/">
+        <img
+          className={styles.reddit}
+          src="/assets/reddit.png"
+          alt="Reddit Logo"
+        />
+      </a>
 
-      <img
-        className={styles.twitter}
-        src="/assets/twitter.png"
-        alt="twitter Logo"
-      />
+      <a href="/">
+        <img
+          className={styles.twitter}
+          src="/assets/twitter.png"
+          alt="twitter Logo"
+        />
+      </a>
     </div>
   );
 };
