@@ -79,9 +79,14 @@ const Form = () => {
       <div className={styles.wrapper}>We will notify you. Keep on waiting.</div>
     ) : (
       <div className={styles.wrapper}>
-        <p className={styles.header}>
-          If you want to be notified on our release date, please subscribe to
-          our mailing list
+        <p>
+          If you want to be notified about the release on February the 1st of
+          2022, leave us you E-Mail below.
+        </p>
+
+        <p>
+          Your E-Mail will not be connected to your Metamask and stored
+          separately.
         </p>
 
         <form className={styles.form} onSubmit={submit}>

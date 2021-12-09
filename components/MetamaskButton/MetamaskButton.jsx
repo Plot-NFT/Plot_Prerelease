@@ -75,11 +75,7 @@ const MetamaskButton = ({ chainState }) => {
       {user.wallet && (
         <div>
           <div>
-            <h2> Hi {user.wallet}!</h2>
-
-            <p className={styles.header}>
-              You have been added to our whitelist!
-            </p>
+            <p className={styles.header}>Your Metamask is now connected.</p>
           </div>
         </div>
       )}
