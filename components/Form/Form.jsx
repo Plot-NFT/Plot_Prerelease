@@ -81,7 +81,7 @@ const Form = () => {
       <div className={styles.wrapper}>
         <p>
           If you want to be notified about the release on February the 1st of
-          2022, leave us you E-Mail below.
+          2022, leave us your E-Mail below.
         </p>
 
         <p>

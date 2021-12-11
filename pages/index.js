@@ -38,6 +38,38 @@ const Index = () => {
     }
   };
 
+  const registerWallet = React.useCallback(
+    async (wallet) => {
+      try {
+        const chainId = Number(ethereum.networkVersion);
+        const chainName = await getChainName(chainId);
+
+        const whitelistPayload = {
+          wallet,
+          network: {
+            chainId,
+            chainName: chainName || "",
+          },
+        };
+
+        const { data } = await axios.post("/api/whitelist", whitelistPayload);
+
+        console.log("success adding wallet address to whitelist");
+
+        dispatch({
+          type: "success",
+          payload: {
+            wallet: data.data.wallet,
+            mailingStatus: data.data.mailingStatus,
+          },
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [dispatch]
+  );
+
   const checkUser = async (account) => {
     try {
       const { data } = await axios.get(`/api/whitelist?wallet=${account}`);
@@ -60,35 +92,7 @@ const Index = () => {
             const isRegistered = await checkUser(accounts[0]);
 
             if (!isRegistered) {
-              const chainId = Number(ethereum.networkVersion);
-              const chainName = await getChainName(chainId);
-
-              const whitelistPayload = {
-                wallet: accounts[0],
-                network: {
-                  chainId,
-                  chainName: chainName || "",
-                },
-              };
-
-              try {
-                const { data } = await axios.post(
-                  "/api/whitelist",
-                  whitelistPayload
-                );
-
-                console.log("success adding wallet address to whitelist");
-
-                dispatch({
-                  type: "success",
-                  payload: {
-                    wallet: data.data.wallet,
-                    mailingStatus: data.data.mailingStatus,
-                  },
-                });
-              } catch (error) {
-                console.error(error);
-              }
+              await registerWallet(accounts[0]);
             } else {
               dispatch({
                 type: "success",
@@ -121,13 +125,7 @@ const Index = () => {
               },
             });
           } else {
-            dispatch({
-              type: "success",
-              payload: {
-                wallet: user.wallet,
-                mailingStatus: user.mailingStatus,
-              },
-            });
+            await registerWallet(ethereum.selectedAddress);
           }
         }
       };
@@ -136,7 +134,7 @@ const Index = () => {
     } else {
       setWalletError(true);
     }
-  }, [chainId, dispatch, user]);
+  }, [chainId, dispatch, registerWallet, user]);
 
   return (
     <>
