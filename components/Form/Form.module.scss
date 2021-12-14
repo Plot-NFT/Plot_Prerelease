@@ -26,6 +26,11 @@
   text-align: left;
 }
 
+.small {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
 .button {
   border-radius: 10px;
   background: variable.$btn-primary;

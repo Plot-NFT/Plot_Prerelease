@@ -76,18 +76,21 @@ const Form = () => {
 
   return user.wallet ? (
     user.mailingStatus === "registered" ? (
-      <div className={styles.wrapper}>We will notify you. Keep on waiting.</div>
+      <div className={styles.wrapper}>
+        Thank you for joining the whitelist. We will keep you updated.
+      </div>
     ) : (
       <div className={styles.wrapper}>
         <p>
-          If you want to be notified about the release on February the 1st of
-          2022, leave us your E-Mail below.
+          Leave us your Email below, to be notified about the release on
+          <br />
+          February 1st, 2022 and future updates.
         </p>
 
-        <p>
-          Your E-Mail will not be connected to your Metamask and stored
-          separately.
-        </p>
+        <small className={styles.small}>
+          (Don’t worry. We store email address and wallet address separately to
+          protect your privacy.)
+        </small>
 
         <form className={styles.form} onSubmit={submit}>
           <div className={styles.formGroup}>

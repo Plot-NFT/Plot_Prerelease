@@ -75,7 +75,9 @@ const MetamaskButton = ({ chainState }) => {
       {user.wallet && (
         <div>
           <div>
-            <p className={styles.header}>Your Metamask is now connected.</p>
+            <p className={styles.header}>
+              Hi <strong>{user.wallet}!</strong>
+            </p>
           </div>
         </div>
       )}

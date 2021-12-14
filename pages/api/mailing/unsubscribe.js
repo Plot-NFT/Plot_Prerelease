@@ -28,7 +28,7 @@ async function handler(req, res) {
 
         await sendUnsubscribeMail(query.email);
 
-        res.redirect(`${process.env.DOMAIN}/mailing/unsubscribe`);
+        res.redirect(`/mailing/unsubscribe`);
       } catch (error) {
         res.json({
           status: 500,
