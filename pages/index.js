@@ -1,4 +1,5 @@
 import * as React from "react";
+import Head from "next/head";
 import axios from "axios";
 import { useUser } from "../context/userContext";
 
@@ -138,6 +139,12 @@ const Index = () => {
 
   return (
     <>
+      <Head>
+        <title>Plotland</title>
+        <meta name="description" content="Plotland" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+
       <Header />
 
       <Container>
