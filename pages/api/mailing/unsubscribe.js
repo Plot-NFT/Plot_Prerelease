@@ -1,6 +1,7 @@
 import MongoDB from "../../../config/db.js";
 import Mailing from "../../../models/MailingSchema.js";
 import { sendUnsubscribeMail } from "../../../utils/sendMail.js";
+import axios from "axios";
 
 async function handler(req, res) {
   await MongoDB.getInstance();
@@ -11,8 +12,18 @@ async function handler(req, res) {
   switch (method) {
     case "GET":
       const query = { email: queries.email };
+      const config = {
+        headers: {
+          Authorization: `Basic ${process.env.MAILGUN_API_KEY}`,
+        },
+      };
 
       try {
+        await axios.delete(
+          `${process.env.MAILGUN_API_URL}/lists/no-reply@plotland.one/members/${query.email}`,
+          config
+        );
+
         await Mailing.deleteOne(query);
 
         await sendUnsubscribeMail(query.email);

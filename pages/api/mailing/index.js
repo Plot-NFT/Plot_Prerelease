@@ -1,6 +1,7 @@
 import MongoDB from "../../../config/db.js";
 import protectAPI from "../../../middleware/protectAPI.js";
 import Mailing from "../../../models/MailingSchema.js";
+import axios from "axios";
 
 const validateEmail = (email) => {
   return email.match(
@@ -40,9 +41,21 @@ async function handler(req, res) {
 
       if (isEmailValid) {
         try {
+          const config = {
+            headers: {
+              Authorization: `Basic ${process.env.MAILGUN_API_KEY}`,
+            },
+          };
+
           const isRegistered = await Mailing.isEmailRegistered(body.email);
 
           if (!isRegistered) {
+            await axios.post(
+              `${process.env.MAILGUN_API_URL}/list/lists/no-reply@plotland.one/members?address=${body.email}`,
+              {},
+              config
+            );
+
             const newEmail = { email: body.email };
 
             await Mailing.create(newEmail);
