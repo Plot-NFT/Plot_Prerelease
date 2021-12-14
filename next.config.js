@@ -15,10 +15,6 @@ const securityHeaders = [
     key: "X-Content-Type-Options",
     value: "nosniff",
   },
-  {
-    key: "Access-Control-Allow-Origin",
-    value: `${process.env.DOMAIN}`,
-  },
 ];
 
 module.exports = {
