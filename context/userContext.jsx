@@ -7,6 +7,9 @@ UserContext.displayName = "UserContext";
 function UserProvider({ children }) {
   const userReducer = (state, action) => {
     switch (action.type) {
+      case "connect": {
+        return { ...state, wallet: action.payload.wallet };
+      }
       case "loading":
         return { ...state, status: "loading" };
       case "submitting":

@@ -1,14 +1,12 @@
 import * as React from "react";
-import { useEthers } from "@usedapp/core";
 import { useUser } from "../../context/userContext";
 
 import styles from "./MetamaskButton.module.scss";
 
 // eslint-disable-next-line react/prop-types
 const MetamaskButton = ({ chainState }) => {
-  const { activateBrowserWallet } = useEthers();
   const [chainId, setChainId] = chainState;
-  const [user] = useUser();
+  const [user, dispatch] = useUser();
 
   // const POLYGON_MUMBAI_PARAMS = {
   //   chainId: "0x13881",
@@ -27,6 +25,32 @@ const MetamaskButton = ({ chainState }) => {
       return undefined;
     } else {
       return window.ethereum;
+    }
+  };
+
+  const connectWallet = async () => {
+    const ethereum = detectProvider();
+
+    if (ethereum) {
+      try {
+        const accounts = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
+
+        dispatch({
+          type: "connect",
+          payload: {
+            wallet: accounts[0],
+          },
+        });
+      } catch (error) {
+        if (error.code === 4001) {
+          // EIP-1193 userRejectedRequest error
+          console.log("Please connect to MetaMask.");
+        } else {
+          console.error(error);
+        }
+      }
     }
   };
 
@@ -58,10 +82,7 @@ const MetamaskButton = ({ chainState }) => {
   return (
     <div className={`${styles.wrapper} ${!user.wallet ? styles.notLogin : ""}`}>
       {!user.wallet && (
-        <button
-          className={styles.button}
-          onClick={() => activateBrowserWallet()}
-        >
+        <button className={styles.button} onClick={() => connectWallet()}>
           Connect Metamask
         </button>
       )}
