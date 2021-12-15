@@ -82,19 +82,103 @@ const Index = () => {
   };
 
   React.useEffect(() => {
-    const ethereum = detectProvider();
+    if (user.status === "idle") {
+      setTimeout(() => {
+        const ethereum = detectProvider();
 
-    if (ethereum) {
-      if (user.status === "idle") {
-        ethereum.on("accountsChanged", async (accounts) => {
-          dispatch({ type: "loading" });
+        if (ethereum) {
+          if (user.status === "idle") {
+            ethereum.on("accountsChanged", async (accounts) => {
+              dispatch({ type: "loading" });
 
-          if (accounts.length) {
-            const isRegistered = await checkUser(accounts[0]);
+              if (accounts.length) {
+                const isRegistered = await checkUser(accounts[0]);
 
-            if (!isRegistered) {
-              await registerWallet(accounts[0]);
+                if (!isRegistered) {
+                  await registerWallet(accounts[0]);
+                } else {
+                  dispatch({
+                    type: "success",
+                    payload: {
+                      wallet: isRegistered.wallet,
+                      mailingStatus: isRegistered.mailingStatus,
+                    },
+                  });
+                }
+              } else {
+                dispatch({
+                  type: "logout",
+                });
+              }
+            });
+          }
+
+          const updateUserState = async () => {
+            if (ethereum.selectedAddress && user.status === "idle") {
+              dispatch({ type: "loading" });
+
+              const isRegistered = await checkUser(ethereum.selectedAddress);
+
+              if (isRegistered) {
+                dispatch({
+                  type: "success",
+                  payload: {
+                    wallet: isRegistered.wallet,
+                    mailingStatus: isRegistered.mailingStatus,
+                  },
+                });
+              } else {
+                await registerWallet(ethereum.selectedAddress);
+              }
+            } else if (user.status === "idle") {
+              dispatch({
+                type: "ready",
+              });
+            }
+          };
+
+          updateUserState();
+        } else {
+          setWalletError(true);
+        }
+      }, 200);
+    } else {
+      const ethereum = detectProvider();
+
+      if (ethereum) {
+        if (user.status === "idle") {
+          ethereum.on("accountsChanged", async (accounts) => {
+            dispatch({ type: "loading" });
+
+            if (accounts.length) {
+              const isRegistered = await checkUser(accounts[0]);
+
+              if (!isRegistered) {
+                await registerWallet(accounts[0]);
+              } else {
+                dispatch({
+                  type: "success",
+                  payload: {
+                    wallet: isRegistered.wallet,
+                    mailingStatus: isRegistered.mailingStatus,
+                  },
+                });
+              }
             } else {
+              dispatch({
+                type: "logout",
+              });
+            }
+          });
+        }
+
+        const updateUserState = async () => {
+          if (ethereum.selectedAddress && user.status === "idle") {
+            dispatch({ type: "loading" });
+
+            const isRegistered = await checkUser(ethereum.selectedAddress);
+
+            if (isRegistered) {
               dispatch({
                 type: "success",
                 payload: {
@@ -102,38 +186,20 @@ const Index = () => {
                   mailingStatus: isRegistered.mailingStatus,
                 },
               });
+            } else {
+              await registerWallet(ethereum.selectedAddress);
             }
-          } else {
+          } else if (user.status === "idle") {
             dispatch({
-              type: "logout",
+              type: "ready",
             });
           }
-        });
+        };
+
+        updateUserState();
+      } else {
+        setWalletError(true);
       }
-
-      const updateUserState = async () => {
-        if (ethereum.selectedAddress && user.status === "idle") {
-          dispatch({ type: "loading" });
-
-          const isRegistered = await checkUser(ethereum.selectedAddress);
-
-          if (isRegistered) {
-            dispatch({
-              type: "success",
-              payload: {
-                wallet: isRegistered.wallet,
-                mailingStatus: isRegistered.mailingStatus,
-              },
-            });
-          } else {
-            await registerWallet(ethereum.selectedAddress);
-          }
-        }
-      };
-
-      updateUserState();
-    } else {
-      setWalletError(true);
     }
   }, [chainId, dispatch, registerWallet, user]);
 
@@ -148,7 +214,7 @@ const Index = () => {
       <Header />
 
       <Container>
-        {user.status === "loading" ? (
+        {user.status === "loading" || user.status === "idle" ? (
           <h3 className="loading">Loading...</h3>
         ) : (
           <>
