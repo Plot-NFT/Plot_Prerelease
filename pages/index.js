@@ -215,9 +215,14 @@ const Index = () => {
 
       <Container>
         {user.status === "loading" || user.status === "idle" ? (
-          <h3 className="loading">Loading...</h3>
+          <div className="loading">
+            <img src="/assets/Plot_Logo_Black.svg" alt="plot logo" />
+            <h4>Loading...</h4>
+          </div>
         ) : (
           <>
+            <Countdown />
+
             {walletError ? (
               <Alert>
                 Please install metamask to use Web3 Service,{" "}
@@ -230,8 +235,6 @@ const Index = () => {
                 {user.wallet && <Form />}
               </>
             )}
-
-            <Countdown />
           </>
         )}
       </Container>
