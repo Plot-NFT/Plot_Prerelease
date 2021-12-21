@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "utils/sendMail.js": {
+      "includeFiles": "email/**"
+    }
+  }
+}
