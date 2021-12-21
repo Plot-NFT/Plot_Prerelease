@@ -1,6 +1,9 @@
 {
   "functions": {
-    "utils/sendMail.js": {
+    "api/whitelist.js": {
+      "includeFiles": "email/**"
+    },
+    "api/mailing/unsubscribe.js": {
       "includeFiles": "email/**"
     }
   }
