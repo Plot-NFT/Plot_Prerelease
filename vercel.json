@@ -1,9 +1,9 @@
 {
   "functions": {
-    "api/whitelist.js": {
+    "pages/api/whitelist.js": {
       "includeFiles": "email/**"
     },
-    "api/mailing/unsubscribe.js": {
+    "pages/api/mailing/unsubscribe.js": {
       "includeFiles": "email/**"
     }
   }
