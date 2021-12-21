@@ -22,6 +22,7 @@ async function handler(req, res) {
           data: whitelists,
         });
       } catch (error) {
+        console.error(error);
         res.json({
           status: 500,
           error: "Server error",
@@ -46,6 +47,8 @@ async function handler(req, res) {
             data: createdWhitelist,
           });
         } catch (error) {
+          console.error(error);
+
           res.json({
             status: 500,
             error: "Server error",
@@ -83,6 +86,8 @@ async function handler(req, res) {
           });
         }
       } catch (error) {
+        console.error(error);
+
         res.json({
           status: 500,
           error: "Server error",

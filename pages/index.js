@@ -139,7 +139,12 @@ const Index = () => {
 
           updateUserState();
         } else {
-          setWalletError(true);
+          setTimeout(() => {
+            setWalletError(true);
+            dispatch({
+              type: "ready",
+            });
+          }, 2000);
         }
       }, 200);
     } else {
@@ -198,7 +203,12 @@ const Index = () => {
 
         updateUserState();
       } else {
-        setWalletError(true);
+        setTimeout(() => {
+          setWalletError(true);
+          dispatch({
+            type: "ready",
+          });
+        }, 2000);
       }
     }
   }, [chainId, dispatch, registerWallet, user]);
