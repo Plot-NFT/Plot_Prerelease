@@ -12,9 +12,5 @@ const mailingSchema = new mongoose.Schema(
   }
 );
 
-mailingSchema.statics.isEmailRegistered = function (email) {
-  return this.findOne({ email });
-};
-
 export default mongoose.models.mailing ||
   mongoose.model("mailing", mailingSchema);

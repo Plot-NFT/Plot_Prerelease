@@ -47,7 +47,7 @@ async function handler(req, res) {
             },
           };
 
-          const isRegistered = await Mailing.isEmailRegistered(body.email);
+          const isRegistered = await Mailing.findOne({ email: body.email });
 
           if (!isRegistered) {
             await axios.post(
