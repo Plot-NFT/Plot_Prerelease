@@ -1,7 +1,17 @@
+import { readFile } from "fs/promises";
+import path from "path";
 import MongoDB from "../../config/db.js";
 import protectAPI from "../../middleware/protectAPI.js";
 import Whitelist from "../../models/WhitelistSchema.js";
 import { sendWelcomeMail } from "../../utils/sendMail.js";
+
+const __dirname = path.resolve();
+
+const readHTMLFile = async (path) => {
+  const template = await readFile(path, { encoding: "utf8" });
+
+  return template;
+};
 
 async function handler(req, res) {
   await MongoDB.getInstance();
@@ -71,8 +81,9 @@ async function handler(req, res) {
           isWalletValid.mailingStatus = "registered";
 
           const updatedUser = await isWalletValid.save();
+          const html = await readHTMLFile(`${__dirname}/email/subscribe.html`);
 
-          await sendWelcomeMail(email);
+          await sendWelcomeMail(email, html);
 
           res.json({
             status: 201,

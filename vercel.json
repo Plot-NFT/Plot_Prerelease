@@ -5,9 +5,6 @@
     },
     "pages/api/mailing/unsubscribe.js": {
       "includeFiles": "email/**"
-    },
-    "utils/sendMail.js": {
-      "includeFiles": "email/**"
     }
   }
 }

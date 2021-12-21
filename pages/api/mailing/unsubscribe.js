@@ -1,7 +1,17 @@
+import { readFile } from "fs/promises";
+import path from "path";
 import MongoDB from "../../../config/db.js";
 import Mailing from "../../../models/MailingSchema.js";
 import { sendUnsubscribeMail } from "../../../utils/sendMail.js";
 import axios from "axios";
+
+const __dirname = path.resolve();
+
+const readHTMLFile = async (path) => {
+  const template = await readFile(path, { encoding: "utf8" });
+
+  return template;
+};
 
 async function handler(req, res) {
   await MongoDB.getInstance();
@@ -26,7 +36,10 @@ async function handler(req, res) {
 
         await Mailing.deleteOne(query);
 
-        await sendUnsubscribeMail(query.email);
+        const template = await readHTMLFile(
+          `${__dirname}/email/unsubscribe.html`
+        );
+        await sendUnsubscribeMail(query.email, template);
 
         res.redirect(`/mailing/unsubscribe`);
       } catch (error) {
