@@ -4,7 +4,11 @@ import styles from "./SocialMedia.module.scss";
 const SocialMedia = () => {
   return (
     <div className={styles.wrapper}>
-      <a href="https://discord.com/invite/xeRNRB9ksA">
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://discord.com/invite/xeRNRB9ksA"
+      >
         <img
           className={styles.discord}
           src="/assets/discord.png"
@@ -12,7 +16,11 @@ const SocialMedia = () => {
         />
       </a>
 
-      <a href="https://www.reddit.com/user/plotNFT">
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://www.reddit.com/user/plotNFT"
+      >
         <img
           className={styles.reddit}
           src="/assets/reddit.png"
@@ -20,7 +28,7 @@ const SocialMedia = () => {
         />
       </a>
 
-      <a href="https://twitter.com/plot_NFT">
+      <a target="_blank" rel="noreferrer" href="https://twitter.com/plot_NFT">
         <img
           className={styles.twitter}
           src="/assets/twitter.png"
